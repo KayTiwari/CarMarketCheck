@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 import SearchInputs from './SearchInputs';
 import {withProvider} from './Provider'
 
 
-const App = () => {
-    return (
-        <div>
-            < SearchInputs />
-        </div>
-    )
+class App extends Component{
+    state = {
+
+    }
+
+
+    render(){
+        return (
+            <SearchInputs />
+        )
+    }
 }
 
 export default withProvider(App);
