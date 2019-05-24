@@ -25,7 +25,7 @@ export default class Provider extends Component {
     }
 
 
-    getData =() => axios.get('https://marketcheck-prod.apigee.net//search?start=0&rows=50&Content-Type="applications/json"&api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo').then(res => {
+    getData =() => axios.get('https://marketcheck-prod.apigee.net/v1/search?start=0&rows=50&Content-Type="applications/json"&api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo').then(res => {
         console.log('what')
         this.setState({
             data: res.data
