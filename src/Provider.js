@@ -22,6 +22,8 @@ export default class Provider extends Component {
     componentDidMount(){
         this.getData()
         this.getData2()
+        this.getData3()
+        this.getData4()
     }
 
 
@@ -42,12 +44,26 @@ export default class Provider extends Component {
         this.setState({
             data2: res.data
         })
-        // console.log(res.data2);
-        // console.log(this.state.data);
         return 0;
         }).catch(error => {
             console.log(error);
             console.log('no');
+        })
+    getData3 =() => axios.get('http://marketcheck-prod.apigee.net/v1/search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&make=&car_type=used&city=Salt Lake City&zip=&year=2011&start=20&rows=10').then(res => {
+        this.setState({
+            data3: res.data
+        })
+        return 0;
+        }).catch(error => {
+            console.log(error);
+        })
+    getData4 =() => axios.get('http://marketcheck-prod.apigee.net/v1/search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&make=&car_type=used&city=Salt Lake City&zip=&year=2011&start=30&rows=10').then(res => {
+        this.setState({
+            data4: res.data
+        })
+        return 0;
+        }).catch(error => {
+            console.log(error);
         })
  
 
