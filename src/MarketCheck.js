@@ -5,7 +5,6 @@ apigee_marketcheck_cars.search({}).then(data => {
   console.log(data);
 });
 const MarketCheck = () => {
-    console.log(apigee_marketcheck_cars);
     return (
         <div>
 
