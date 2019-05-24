@@ -17,8 +17,10 @@ export default class Provider extends Component {
     }
 
 
-    getData =() => axios.get('http://api.marketcheck.com/v1//search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&year=2007&make=honda&start=0&rows=50&Content-Type="applications/json"').then(res => {
-        console.log(res.data)
+    getData =() => axios.get('https://vschool-cors.herokuapp.com?url=http://api.marketcheck.com/v1//search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&year=2007&make=honda&start=0&rows=50&Content-Type="applications/json"').then(res => {
+        console.log(res)
+        }).catch(error => {
+            console.log(error);
         })
  
 
