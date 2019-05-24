@@ -1,4 +1,5 @@
 import React, { Component} from 'react'
+import axios from 'axios'
 const Context = React.createContext();
 
 
@@ -18,7 +19,7 @@ export default class Provider extends Component {
     }
 
 
-
+axios.get((res) =>)
 
 
   render() {
