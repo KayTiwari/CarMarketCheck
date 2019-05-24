@@ -19,7 +19,9 @@ export default class Provider extends Component {
     }
 
 
-axios.get((res) =>)
+axios.get(('http://api.marketcheck.com/v1//search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&year=2007&make=honda&start=0&rows=50&Content-Type="applications/json"') => (data) =>{
+  console.log(data);
+})
 
 
   render() {
