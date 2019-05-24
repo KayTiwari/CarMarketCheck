@@ -21,18 +21,30 @@ export default class Provider extends Component {
 
     componentDidMount(){
         this.getData()
-        console.log('fired')
+        this.getData2()
     }
 
 
-    getData =() => axios.get('https://marketcheck-prod.apigee.net/v1/search?start=0&rows=50&Content-Type="applications/json"&api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo').then(res => {
+    getData =() => axios.get('http://marketcheck-prod.apigee.net/v1/search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&make=&car_type=used&city=Salt Lake City&zip=&year=2011&start=0&rows=10').then(res => {
         console.log('what')
         this.setState({
             data: res.data
         })
         console.log(res.data);
         console.log(this.state.data);
-        console.log('anything')
+        return 0;
+        }).catch(error => {
+            console.log(error);
+            console.log('no');
+        })
+    getData2 =() => axios.get('http://marketcheck-prod.apigee.net/v1/search?api_key=s29CT76B5A9lAOtHnImGs0u0AWrZ2JHo&make=&car_type=used&city=Salt Lake City&zip=&year=2011&start=10&rows=10').then(res => {
+        console.log('what')
+        this.setState({
+            data2: res.data
+        })
+        // console.log(res.data2);
+        // console.log(this.state.data);
+        return 0;
         }).catch(error => {
             console.log(error);
             console.log('no');
