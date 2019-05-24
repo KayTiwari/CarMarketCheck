@@ -15,7 +15,7 @@ class CarsMap extends Component{
         if (this.props.data && this.props.data2) {
         if (this.props.data.listings && this.props.data2.listings) {
             MappedCars = this.props.data.listings.map((data) => {return (<Mapper color={'black'} make={data.build.make} model={data.build.model} year={data.build.year} price={data.price} miles={data.miles} url={data.vdp_url} heading={data.heading} />)})
-            MappedCars2 = this.props.data2.listings.map((data) => {return (<Mapper color={'red'} make={data.build.make} model={data.build.model} year={data.build.year} price={data.price} miles={data.miles} url={data.vdp_url} heading={data.heading} />)})
+            MappedCars2 = this.props.data2.listings.map((data) => {return (<Mapper color={'#333'} make={data.build.make} model={data.build.model} year={data.build.year} price={data.price} miles={data.miles} url={data.vdp_url} heading={data.heading} />)})
         }
 
     }
