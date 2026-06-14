@@ -12,21 +12,20 @@ function num(v) {
 
 function mapListing(l) {
   const rl = l.retailListing || {};
-  const vehicle = l.vehicle || {};
-  const loc = l.location || {};
+  const v = l.vehicle || {};
   return {
-    id: l.vin || l.id || `${Math.random()}`,
-    year: num(l.year ?? vehicle.year),
-    make: l.make || vehicle.make || "",
-    model: [l.model || vehicle.model, l.trim || vehicle.trim]
-      .filter(Boolean)
-      .join(" "),
-    price: num(rl.price ?? l.price),
-    miles: num(l.mileage ?? l.miles ?? rl.miles ?? l.odometer),
-    city: loc.city || l.city || rl.city || "",
-    state: loc.state || l.state || rl.state || "",
-    dealer: l.dealerName || (l.dealer && l.dealer.name) || rl.dealerName || "",
-    url: l.vdpUrl || l.clickoffUrl || l.url || rl.vdpUrl || null,
+    id: l.vin || rl.vin || `${Math.random()}`,
+    year: num(v.year),
+    make: v.make || "",
+    model: v.model || "",
+    price: num(rl.price),
+    miles: num(rl.miles),
+    city: rl.city || "",
+    state: rl.state || "",
+    dealer: rl.dealer || "",
+    photo: rl.primaryImage || null,
+    carfax: rl.carfaxUrl || null,
+    cpo: !!rl.cpo,
   };
 }
 
@@ -62,7 +61,7 @@ export default async function handler(req, res) {
     }
     const json = await r.json();
     const list = json.data || json.listings || json.records || [];
-    const cars = list.map(mapListing).filter((c) => c.make || c.price);
+    const cars = list.map(mapListing).filter((c) => c.price > 0);
     res.status(200).json({ status: cars.length ? "ok" : "empty", cars });
   } catch {
     res.status(200).json({ status: "error", cars: [] });

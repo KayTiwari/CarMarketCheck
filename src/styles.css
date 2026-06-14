@@ -261,6 +261,34 @@ html, body {
 .card:nth-child(5) { animation-delay: 230ms; }
 .card:nth-child(6) { animation-delay: 270ms; }
 
+.card-photo {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.card-photo-badge { position: absolute; top: 12px; right: 12px; }
+.cpo-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(28, 27, 25, 0.78);
+  color: var(--bg);
+}
+
 .card-banner {
   display: flex;
   align-items: center;

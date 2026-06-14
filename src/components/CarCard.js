@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DealBadge from "./DealBadge";
 import { formatUSD, formatMiles } from "../lib/deal";
 
@@ -18,13 +18,30 @@ function CarGlyph() {
 export default function CarCard({ car }) {
   const { deal } = car;
   const savingsPositive = deal && deal.savings > 0;
+  const [imgFailed, setImgFailed] = useState(false);
+  const showPhoto = car.photo && !imgFailed;
 
   return (
     <article className="card">
-      <div className={`card-banner banner-${deal ? deal.rating : "unknown"}`}>
-        <CarGlyph />
-        <DealBadge deal={deal} />
-      </div>
+      {showPhoto ? (
+        <div className="card-photo">
+          <img
+            src={car.photo}
+            alt={`${car.year} ${car.make} ${car.model}`}
+            loading="lazy"
+            onError={() => setImgFailed(true)}
+          />
+          <div className="card-photo-badge">
+            <DealBadge deal={deal} />
+          </div>
+          {car.cpo && <span className="cpo-tag">CPO</span>}
+        </div>
+      ) : (
+        <div className={`card-banner banner-${deal ? deal.rating : "unknown"}`}>
+          <CarGlyph />
+          <DealBadge deal={deal} />
+        </div>
+      )}
 
       <div className="card-body">
         <h3 className="card-title">
@@ -34,7 +51,7 @@ export default function CarCard({ car }) {
         <div className="price-row">
           <span className="price">{formatUSD(car.price)}</span>
           {car.estimate ? (
-            <span className="estimate">est. {formatUSD(car.estimate)}</span>
+            <span className="estimate">typical {formatUSD(car.estimate)}</span>
           ) : null}
         </div>
 
@@ -43,7 +60,7 @@ export default function CarCard({ car }) {
             {savingsPositive ? "Saves " : "Over by "}
             {formatUSD(Math.abs(deal.savings))}
             <span className="savings-pct">
-              {" "}({Math.abs(Math.round(deal.savingsPct * 100))}% {savingsPositive ? "below" : "above"} market)
+              {" "}({Math.abs(Math.round(deal.savingsPct * 100))}% {savingsPositive ? "below" : "above"} comparable)
             </span>
           </div>
         )}
@@ -63,9 +80,9 @@ export default function CarCard({ car }) {
           </div>
         </dl>
 
-        {car.url && (
-          <a className="card-link" href={car.url} target="_blank" rel="noopener noreferrer">
-            View listing
+        {car.carfax && (
+          <a className="card-link" href={car.carfax} target="_blank" rel="noopener noreferrer">
+            View Carfax report
           </a>
         )}
       </div>
