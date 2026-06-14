@@ -4,13 +4,13 @@ import { formatUSD, formatMiles } from "../lib/deal";
 
 function CarGlyph() {
   return (
-    <svg viewBox="0 0 64 28" width="56" height="26" aria-hidden="true">
+    <svg viewBox="0 0 64 28" width="58" height="27" aria-hidden="true" style={{ color: "inherit" }}>
       <path
         d="M4 20 L9 11 C10 9 12 8 14 8 L42 8 C45 8 47 9 49 11 L56 18 L60 19 C62 19 62 20 62 21 L62 21 L4 21 Z"
-        fill="rgba(255,255,255,0.9)"
+        fill="currentColor"
       />
-      <circle cx="18" cy="21" r="5" fill="#0b1220" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
-      <circle cx="46" cy="21" r="5" fill="#0b1220" stroke="rgba(255,255,255,0.9)" strokeWidth="2.5" />
+      <circle cx="18" cy="21" r="5" fill="#fffcf2" stroke="currentColor" strokeWidth="2.5" />
+      <circle cx="46" cy="21" r="5" fill="#fffcf2" stroke="currentColor" strokeWidth="2.5" />
     </svg>
   );
 }
