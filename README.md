@@ -1,68 +1,62 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Car Market Check
 
-## Available Scripts
+Search used-car inventory and instantly see how each asking price compares to a
+fair-market estimate. Deals are scored and the best ones float to the top.
 
-In the project directory, you can run:
+![Car Market Check](docs/screenshot.png)
 
-### `npm start`
+## What it does
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Search** by make, model, year range, max price, max miles, and location.
+- **Deal scoring** compares each asking price to a fair-market (KBB-style)
+  estimate and labels it Great deal / Good deal / Fair price / Above market,
+  with the dollar and percentage savings.
+- **Sorted by value** so the strongest deals appear first, with summary stats
+  (matches, great deals, total potential savings).
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Live data vs sample data
 
-### `npm test`
+The app calls the [MarketCheck](https://www.marketcheck.com/) API when an API key
+is configured, and otherwise falls back to a curated **sample inventory** so the
+UI is always populated and demoable.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To use live listings, add a key to a `.env` file:
 
-### `npm run build`
+```
+REACT_APP_MARKETCHECK_KEY=your_key_here
+```
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Without it, the app shows sample data and a small notice.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## Develop
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+npm start        # http://localhost:3000
+npm run build    # production build
+```
 
-### `npm run eject`
+## Tech
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- React 18 (functional components + hooks)
+- Create React App (react-scripts 5)
+- axios for API calls
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+src/
+  App.js                 # layout, state, search orchestration
+  components/
+    SearchBar.js         # filter form
+    CarCard.js           # deal-scored car card
+    DealBadge.js         # Great/Good/Fair/Above-market badge
+  lib/
+    marketcheck.js       # live API with sample-data fallback
+    deal.js              # deal scoring + formatting
+  data/
+    sampleCars.js        # curated demo inventory
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Originally a 2023 learning project; rebuilt in 2026 with a working search, a deal
+engine, and a modern UI.
