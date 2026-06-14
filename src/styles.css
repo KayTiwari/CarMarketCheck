@@ -94,7 +94,7 @@ html, body {
   border: 1px solid var(--line-strong);
   border-radius: 18px;
   padding: 24px;
-  margin: -40px 0 36px;
+  margin: 0 0 36px;
   box-shadow: 0 30px 60px -40px rgba(56, 73, 51, 0.4);
   animation: fade-up 700ms 280ms both;
 }
@@ -115,9 +115,71 @@ html, body {
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 .field input::placeholder { color: var(--faint); }
-.field input:focus {
+.field select {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 11px 13px;
+  color: var(--ink);
+  font-size: 14.5px;
+  outline: none;
+  cursor: pointer;
+}
+.field input:focus,
+.field select:focus {
   border-color: var(--ink);
   box-shadow: 0 0 0 3px rgba(56, 73, 51, 0.12);
+}
+
+/* ---------- Location bar ---------- */
+.locbar { margin: 30px 0 14px; animation: fade-up 700ms 220ms both; }
+.locpill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  background: rgba(56, 73, 51, 0.06);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 7px 14px;
+}
+.locpill-off { color: var(--ink-soft); }
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0 0 0 8px;
+  margin-left: 6px;
+  border-left: 1px solid var(--line-strong);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.link-btn:hover { opacity: 0.75; }
+
+/* ---------- State panels ---------- */
+.state-panel {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  padding: 40px;
+  text-align: center;
+  max-width: 620px;
+  margin: 8px auto 64px;
+  animation: fade-up 500ms both;
+}
+.state-title { margin: 0 0 10px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.state-text { color: var(--ink-soft); font-size: 15px; line-height: 1.65; }
+.state-text a { color: var(--ink); font-weight: 600; }
+.state-text code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12.5px;
+  background: rgba(56, 73, 51, 0.08);
+  padding: 1px 6px;
+  border-radius: 5px;
 }
 .search-actions {
   grid-column: span 12;

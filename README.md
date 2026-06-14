@@ -9,26 +9,27 @@ fair-market estimate. Deals are scored and the best ones float to the top.
 
 ## What it does
 
-- **Search** by make, model, year range, max price, max miles, and location.
-- **Deal scoring** compares each asking price to a fair-market (KBB-style)
-  estimate and labels it Great deal / Good deal / Fair price / Above market,
-  with the dollar and percentage savings.
-- **Sorted by value** so the strongest deals appear first, with summary stats
-  (matches, great deals, total potential savings).
+- **Uses your location** (browser geolocation) to pull live used-car listings
+  nearby, within a radius you choose.
+- **Search** by make, model, year range, max price, max miles, and radius.
+- **Deal scoring** compares each asking price to a fair-market estimate and
+  labels it Great deal / Good deal / Fair price / Above market, with the dollar
+  and percentage savings.
+- **Sorted by value** so the strongest deals appear first, with summary stats.
 
-## Live data vs sample data
+## Live data (API key required)
 
-The app calls the [MarketCheck](https://www.marketcheck.com/) API when an API key
-is configured, and otherwise falls back to a curated **sample inventory** so the
-UI is always populated and demoable.
-
-To use live listings, add a key to a `.env` file:
+Listings come from the live [MarketCheck API](https://www.marketcheck.com/apis).
+Add your key so the app can search:
 
 ```
+# .env (local) or an environment variable on the host
 REACT_APP_MARKETCHECK_KEY=your_key_here
 ```
 
-Without it, the app shows sample data and a small notice.
+Without a key, the app shows a clear "connect live inventory" state instead of
+any placeholder data. Location is requested in the browser; if it's declined,
+search falls back to a nationwide query.
 
 ## Develop
 
@@ -54,10 +55,9 @@ src/
     CarCard.js           # deal-scored car card
     DealBadge.js         # Great/Good/Fair/Above-market badge
   lib/
-    marketcheck.js       # live API with sample-data fallback
+    geo.js               # browser geolocation + reverse geocode
+    marketcheck.js       # live MarketCheck API search (no fallback)
     deal.js              # deal scoring + formatting
-  data/
-    sampleCars.js        # curated demo inventory
 ```
 
 Originally a 2023 learning project; rebuilt in 2026 with a working search, a deal

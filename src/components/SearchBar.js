@@ -7,7 +7,7 @@ const EMPTY = {
   yearMax: "",
   maxPrice: "",
   maxMiles: "",
-  location: "",
+  radius: "100",
 };
 
 export default function SearchBar({ onSearch, loading }) {
@@ -52,13 +52,19 @@ export default function SearchBar({ onSearch, loading }) {
         <label htmlFor="maxMiles">Max miles</label>
         <input id="maxMiles" name="maxMiles" value={filters.maxMiles} onChange={update} placeholder="80000" inputMode="numeric" />
       </div>
-      <div className="field">
-        <label htmlFor="location">Location</label>
-        <input id="location" name="location" value={filters.location} onChange={update} placeholder="Salt Lake City" />
+      <div className="field field-sm">
+        <label htmlFor="radius">Radius</label>
+        <select id="radius" name="radius" value={filters.radius} onChange={update}>
+          <option value="25">25 mi</option>
+          <option value="50">50 mi</option>
+          <option value="100">100 mi</option>
+          <option value="250">250 mi</option>
+          <option value="500">500 mi</option>
+        </select>
       </div>
       <div className="search-actions">
         <button type="submit" className="btn-primary" disabled={loading}>
-          {loading ? "Searching..." : "Find deals"}
+          {loading ? "Searching..." : "Find deals near me"}
         </button>
         <button type="button" className="btn-ghost" onClick={reset} disabled={loading}>
           Reset
