@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import CarCard from "./components/CarCard";
-import { searchCars } from "./lib/marketcheck";
+import { searchCars } from "./lib/listings";
 import { detectLocation } from "./lib/geo";
 import "./styles.css";
 
@@ -87,8 +87,8 @@ export default function App() {
           </h1>
           <p className="hero-sub">
             We use your location to pull live used-car listings nearby, then show
-            how each asking price compares to its fair-market value. Great deals
-            float to the top.
+            how each price compares to similar cars in the area. Great deals float
+            to the top.
           </p>
         </div>
       </header>
@@ -144,12 +144,12 @@ export default function App() {
         ) : status === "no-key" ? (
           <StatePanel title="Connect live inventory">
             Car Market Check pulls live listings from the{" "}
-            <a href="https://www.marketcheck.com/apis" target="_blank" rel="noopener noreferrer">
-              MarketCheck API
-            </a>
-            . Add your key as <code>REACT_APP_MARKETCHECK_KEY</code> (in a{" "}
-            <code>.env</code> file locally, or as an environment variable on the
-            host) to see cars near you.
+            <a href="https://www.auto.dev/listings" target="_blank" rel="noopener noreferrer">
+              Auto.dev API
+            </a>{" "}
+            through a small serverless proxy. Set <code>AUTODEV_API_KEY</code> as
+            an environment variable on the host (the free tier covers 1,000 calls
+            a month) to see cars near you.
           </StatePanel>
         ) : status === "error" ? (
           <StatePanel title="Couldn't reach MarketCheck">
@@ -177,7 +177,7 @@ export default function App() {
 
       <footer className="footer container">
         <span>Car Market Check</span>
-        <span>Deal scoring compares asking price to a fair-market estimate.</span>
+        <span>Deal scoring compares each price to similar listings nearby.</span>
       </footer>
     </div>
   );

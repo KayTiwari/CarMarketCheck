@@ -12,6 +12,7 @@ export function detectLocation() {
         const { latitude, longitude } = pos.coords;
         let city = "";
         let state = "";
+        let zip = "";
         try {
           const res = await fetch(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
@@ -22,10 +23,11 @@ export function detectLocation() {
             (data.principalSubdivisionCode || "").split("-")[1] ||
             data.principalSubdivision ||
             "";
+          zip = data.postcode || "";
         } catch {
           // reverse geocode failed; keep coordinates without a label
         }
-        resolve({ lat: latitude, lng: longitude, city, state });
+        resolve({ lat: latitude, lng: longitude, city, state, zip });
       },
       () => resolve(null),
       { timeout: 9000, maximumAge: 600000 }
