@@ -221,17 +221,48 @@ html, body {
   padding: 1px 6px;
   border-radius: 5px;
 }
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 26px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
 .result-stats {
   display: flex;
   flex-wrap: wrap;
   gap: 28px;
   color: var(--ink-soft);
   font-size: 14px;
-  margin-bottom: 26px;
-  padding-bottom: 22px;
-  border-bottom: 1px solid var(--line);
 }
 .result-stats strong { color: var(--ink); font-weight: 700; }
+.sort-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+}
+.sort-control select {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 8px 14px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+  outline: none;
+}
+.sort-control select:focus { border-color: var(--ink); }
 
 /* ---------- Grid + cards ---------- */
 .grid {

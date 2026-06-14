@@ -18,6 +18,23 @@ function Pin() {
   );
 }
 
+const SORTS = [
+  { id: "deal", label: "Best deal" },
+  { id: "price", label: "Lowest price" },
+  { id: "miles", label: "Fewest miles" },
+  { id: "year", label: "Newest year" },
+];
+
+function sortCars(cars, sort) {
+  const by = {
+    deal: (a, b) => (b.deal.savingsPct ?? -Infinity) - (a.deal.savingsPct ?? -Infinity),
+    price: (a, b) => (a.price ?? Infinity) - (b.price ?? Infinity),
+    miles: (a, b) => (a.miles ?? Infinity) - (b.miles ?? Infinity),
+    year: (a, b) => (b.year ?? 0) - (a.year ?? 0),
+  };
+  return [...cars].sort(by[sort] || by.deal);
+}
+
 function StatePanel({ title, children }) {
   return (
     <div className="state-panel">
@@ -33,6 +50,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [loc, setLoc] = useState(null);
   const [locating, setLocating] = useState(true);
+  const [sort, setSort] = useState("deal");
 
   const locRef = useRef(null);
   const filtersRef = useRef({});
@@ -69,6 +87,8 @@ export default function App() {
       .reduce((sum, c) => sum + c.deal.savings, 0);
     return { count: cars.length, great, totalSavings };
   }, [cars]);
+
+  const sortedCars = useMemo(() => sortCars(cars, sort), [cars, sort]);
 
   const locationLabel =
     loc && loc.city ? `${loc.city}${loc.state ? ", " + loc.state : ""}` : null;
@@ -122,20 +142,32 @@ export default function App() {
         <SearchBar onSearch={run} loading={loading} />
 
         {!loading && status === "ok" && cars.length > 0 && (
-          <div className="result-stats">
-            <span><strong>{stats.count}</strong> listings nearby</span>
-            <span><strong>{stats.great}</strong> great deals</span>
-            <span>
-              up to{" "}
-              <strong>
-                {stats.totalSavings.toLocaleString("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                  maximumFractionDigits: 0,
-                })}
-              </strong>{" "}
-              under market
-            </span>
+          <div className="results-header">
+            <div className="result-stats">
+              <span><strong>{stats.count}</strong> listings nearby</span>
+              <span><strong>{stats.great}</strong> great deals</span>
+              <span>
+                up to{" "}
+                <strong>
+                  {stats.totalSavings.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                    maximumFractionDigits: 0,
+                  })}
+                </strong>{" "}
+                under comparable
+              </span>
+            </div>
+            <label className="sort-control">
+              <span>Sort</span>
+              <select value={sort} onChange={(e) => setSort(e.target.value)}>
+                {SORTS.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
         )}
 
@@ -168,7 +200,7 @@ export default function App() {
           </StatePanel>
         ) : (
           <section className="grid">
-            {cars.map((car) => (
+            {sortedCars.map((car) => (
               <CarCard key={car.id} car={car} />
             ))}
           </section>
