@@ -78,7 +78,7 @@ export async function searchCars(filters = {}) {
     const listings = res.data && res.data.listings ? res.data.listings : [];
     const cars = listings.map(mapListing).map(withDeal);
     return { cars: sortByDeal(cars), usingSampleData: false };
-  } catch (err) {
+  } catch {
     // Live API unavailable (expired key, rate limit, network): fall back so the
     // UI stays useful instead of empty.
     return searchSample(filters);
